@@ -40,11 +40,10 @@ const highlightStyle = {
     fillColor: "#FFA726"
 };
 
-// 4. Fetch and Filter Data
 fetch(GEOJSON_URL)
     .then(response => response.json())
     .then(data => {
-        // Use the variable to filter the global dataset
+        
         const countryFeature = data.features.filter(f => f.properties.name === TARGET_COUNTRY);
 
         if (countryFeature.length === 0) {
@@ -56,7 +55,6 @@ fetch(GEOJSON_URL)
         const boundaryLayer = L.geoJSON(countryFeature, {
             style: defaultStyle,
             onEachFeature: (feature, layer) => {
-                // Dynamic Popup using the variable
                 layer.bindPopup(`
                     <div class="custom-popup">
                         <h3 style="margin:0">Country: ${TARGET_COUNTRY}</h3>
