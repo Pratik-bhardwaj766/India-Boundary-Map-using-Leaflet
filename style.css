@@ -11,8 +11,6 @@ body, html {
     width: 100%;
     background: #f0f0f0;
 }
-
-/* Loading Spinner Styling */
 #loader {
     position: absolute;
     top: 50%;
@@ -26,15 +24,11 @@ body, html {
     font-weight: bold;
     color: #FF4500;
 }
-
-/* Custom Popup Styling */
 .custom-popup .leaflet-popup-content-wrapper {
     background: rgba(255, 255, 255, 0.95);
     color: #333;
     border-left: 5px solid #FF4500;
 }
-
-/* Smooth Path Transitions */
 .leaflet-interactive {
     transition: all 0.3s ease;
 }

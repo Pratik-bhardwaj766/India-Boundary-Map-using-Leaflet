@@ -1,31 +1,25 @@
-/**
- * Dynamic Leaflet Implementation
- * Change the COUNTRY_NAME variable to display different boundaries
- */
 
-// --- Configuration ---
-const TARGET_COUNTRY = 'India'; // Change this to 'Brazil', 'Canada', etc.
+const TARGET_COUNTRY = 'India'; 
 const GEOJSON_URL = 'https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson';
 
-// 1. Initialize Map
 const map = L.map('map', {
-    center: [20, 0], // Default global center
+    center: [20, 0], 
     zoom: 2,
     zoomControl: false 
 });
 
 L.control.zoom({ position: 'topright' }).addTo(map);
 
-// 2. Base Layers
+
 const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
 }).addTo(map);
-
 const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
     attribution: 'Tiles &copy; Esri'
 });
-
-// 3. Styling Configuration
+const terrain = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+    attribution: 'Map data: &copy; OpenStreetMap contributors, SRTM | Map style: &copy; OpenTopoMap (CC-BY-SA)'
+});
 const defaultStyle = {
     color: "#D32F2F",
     weight: 3,
@@ -77,15 +71,11 @@ fetch(GEOJSON_URL)
                 });
             }
         }).addTo(map);
-
-        // 5. Layer Control
-        const baseMaps = { "Street": osm, "Satellite": satellite };
+        const baseMaps = { "Street": osm, "Satellite": satellite, "Terrain": terrain };
         const overlayMaps = {};
         overlayMaps[`${TARGET_COUNTRY} Boundary`] = boundaryLayer;
 
         L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
-
-        // 6. Finalize View
         map.fitBounds(boundaryLayer.getBounds()); 
         document.getElementById('loader').style.display = 'none';
     })
